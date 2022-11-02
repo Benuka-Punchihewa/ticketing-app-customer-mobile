@@ -7,12 +7,12 @@ import QRCode from "../components/QRCode";
 const Home = () => {
   return (
     <View style={styles.home_container}>
-      <Text style={styles.home_topic} onPress={() => alert("pakaya")}>
+      <Text style={styles.home_topic}>
         Please Show this QR Code to the Bus Driver
       </Text>
 
       <View style={styles.home_Qrcode_container}>
-        <QRCode value={"5656565"} />
+        <QRCode value={localStorage.getItem("id")} />
       </View>
     </View>
   );

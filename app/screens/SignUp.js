@@ -4,34 +4,72 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  Button,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+
+//importing the service
+import { createCustomer } from "../service/auth.service";
 
 const SignUp = ({ navigation }) => {
+  const [nic, setNic] = useState();
+  const [name, setName] = useState();
+  const [password, setPassword] = useState();
+  const [reEnterPassword, setReEnterPassword] = useState();
+
+  //creating the submit handler
+  const handleSubmit = async () => {
+    if (!password === reEnterPassword) {
+      alert("Password mismatched!");
+    } else {
+      const data = {
+        _id: nic,
+        name: name,
+        password: password,
+      };
+
+      const response = await createCustomer(data);
+
+      if (response.success) {
+        //redirect user to the sign in screen
+        navigation.navigate("SignIn");
+      } else {
+        //display the error message
+        response?.data?.message && alert(response?.data?.message);
+      }
+    }
+  };
+
   return (
     <View style={styles.signUp_container}>
       <Text style={styles.signUp_topic}>Sign Up</Text>
 
-      <Text style={styles.signUp_lables}>Nationl ID</Text>
-      <TextInput style={styles.signUp_inputs}></TextInput>
+      <Text style={styles.signUp_lables}>NIC</Text>
+      <TextInput
+        style={styles.signUp_inputs}
+        onChange={(e) => setNic(e.target.value)}
+      ></TextInput>
 
       <Text style={styles.signUp_lables}>Full Name</Text>
-      <TextInput style={styles.signUp_inputs}></TextInput>
+      <TextInput
+        style={styles.signUp_inputs}
+        onChange={(e) => setName(e.target.value)}
+      ></TextInput>
 
       <Text style={styles.signUp_lables}>Password</Text>
       <TextInput
         style={styles.signUp_inputs}
         secureTextEntry={true}
+        onChange={(e) => setPassword(e.target.value)}
       ></TextInput>
 
       <Text style={styles.signUp_lables}>Confirm Password</Text>
       <TextInput
         style={styles.signUp_inputs}
         secureTextEntry={true}
+        onChange={(e) => setReEnterPassword(e.target.value)}
       ></TextInput>
 
-      <TouchableOpacity style={styles.signUp_button}>
+      <TouchableOpacity style={styles.signUp_button} onPress={handleSubmit}>
         <Text style={styles.signUp_button_text}>Sign Up</Text>
       </TouchableOpacity>
 

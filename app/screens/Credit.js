@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 
-const TopUp = () => {
+const Credit = () => {
   return (
     <View style={styles.topUp_container}>
       <View style={styles.topUp_img_container}>
@@ -18,7 +18,9 @@ const TopUp = () => {
           resizeMode={"cover"}
         />
 
-        <Text style={styles.topUp_userName}>Benuka Punchihewa</Text>
+        <Text style={styles.topUp_userName}>
+          {localStorage.getItem("name")}
+        </Text>
       </View>
 
       <View style={styles.topUp_blance_container}>
@@ -45,7 +47,7 @@ const TopUp = () => {
   );
 };
 
-export default TopUp;
+export default Credit;
 
 const styles = StyleSheet.create({
   topUp_container: {

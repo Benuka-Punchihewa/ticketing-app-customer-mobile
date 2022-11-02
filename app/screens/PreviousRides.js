@@ -5,30 +5,61 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+//importing service
+import { trips } from "../service/myTrip.service";
 
 const PreviousRides = () => {
+  const [tripData, setTripData] = useState([]);
+
+  useEffect(() => {
+    let unmounted = false;
+
+    const fetchData = async () => {
+      const response = await trips();
+
+      if (response.success) {
+        if (!unmounted) {
+          setTripData(response.data);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
+  console.log(tripData);
+
   return (
     <View style={styles.previousRides_container}>
       <ScrollView
         style={styles.previousRides_data_container}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.previousRides_data}>
-          <Text style={styles.previousRides_data_text_1}>
-            Malabe To Colombo
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Ticket Price Rs.120.00
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Route &nbsp;&nbsp; 177
-          </Text>
+        {tripData.map((data, index) => {
+          return (
+            <View style={styles.previousRides_data} key={index}>
+              <Text style={styles.previousRides_data_text_1}>
+                Malabe To Colombo
+              </Text>
+              <Text style={styles.previousRides_data_text}>
+                Ticket Price Rs.120.00
+              </Text>
+              <Text style={styles.previousRides_data_text}>
+                Route &nbsp;&nbsp; 177
+              </Text>
 
-          <TouchableOpacity style={styles.previousRides_data_button}>
-            <Text style={styles.previousRides_data_button_text}>View</Text>
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity style={styles.previousRides_data_button}>
+                <Text style={styles.previousRides_data_button_text}>View</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        })}
       </ScrollView>
     </View>
   );

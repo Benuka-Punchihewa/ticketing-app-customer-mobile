@@ -6,41 +6,81 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+
+//importing service
+import { timeTable } from "../service/timetable.service";
 
 const TimeTable = () => {
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
+  const [searchData, setSearchData] = useState([]);
+
+  const handleSubmit = async () => {
+    const response = await timeTable(from, to);
+
+    if (response.success) {
+      setSearchData(response.data);
+    } else {
+      response?.data?.message && alert(response?.data?.message);
+    }
+  };
+
+  console.log(searchData);
+
   return (
     <View style={styles.timeTable_container}>
       <ScrollView>
         <View style={styles.timeTable_search_container}>
           <Text style={styles.timeTable_search_label}>From</Text>
-          <TextInput style={styles.timeTable_search_inputs}></TextInput>
+          <TextInput
+            style={styles.timeTable_search_inputs}
+            onChange={(e) => setFrom(e.target.value)}
+          ></TextInput>
 
           <Text style={styles.timeTable_search_label}>To</Text>
-          <TextInput style={styles.timeTable_search_inputs}></TextInput>
+          <TextInput
+            style={styles.timeTable_search_inputs}
+            onChange={(e) => setTo(e.target.value)}
+          ></TextInput>
 
-          <TouchableOpacity style={styles.timeTable_search_button}>
+          <TouchableOpacity
+            style={styles.timeTable_search_button}
+            onPress={handleSubmit}
+          >
             <Text style={styles.timeTable_search_button_text}>Search</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.timeTable_search_results_container}>
-          <Text style={styles.timeTable_search_results_topic}>
-            Search Results
-          </Text>
-
-          <View style={styles.timeTable_search_results_data_container}>
-            <Text style={styles.timeTable_search_results_data_topic}>
-              Kaduwela - Kollupitiya
+        {searchData ? (
+          <View style={styles.timeTable_search_results_container}>
+            <Text style={styles.timeTable_search_results_topic}>
+              Search Results
             </Text>
+            {searchData.map((data, index) => {
+              return (
+                <>
+                  <View
+                    style={styles.timeTable_search_results_data_container}
+                    key={index}
+                  >
+                    <Text style={styles.timeTable_search_results_data_topic}>
+                      {data.name}
+                    </Text>
 
-            <Text style={styles.timeTable_search_results_data_route}>200</Text>
+                    <Text style={styles.timeTable_search_results_data_route}>
+                      {data.routeId}
+                    </Text>
 
-            <Text style={styles.timeTable_search_results_data_time}>
-              9:12 a.m.
-            </Text>
+                    <Text style={styles.timeTable_search_results_data_time}>
+                      {data.arrivalTimes}
+                    </Text>
+                  </View>
+                </>
+              );
+            })}
           </View>
-        </View>
+        ) : null}
       </ScrollView>
     </View>
   );

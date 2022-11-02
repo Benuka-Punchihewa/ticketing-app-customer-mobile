@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
@@ -6,22 +6,30 @@ import { NavigationContainer } from "@react-navigation/native";
 //importing screens
 import SignIn from "./app/screens/SignIn";
 import SignUp from "./app/screens/SignUp";
-import TopUp from "./app/screens/TopUp";
 import PreviousRides from "./app/screens/PreviousRides";
 import TimeTable from "./app/screens/TimeTable";
 import Home from "./app/screens/Home";
+import Credit from "./app/screens/Credit";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
 
   const Drawer = createDrawerNavigator();
 
-  const user = "new-user";
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      setUser(false);
+    } else {
+      setUser(true);
+    }
+  }, []);
 
   return (
     <>
       <NavigationContainer>
-        {user === "new-use" ? (
+        {!user ? (
           <Stack.Navigator
             initialRouteName="SignIn"
             screenOptions={{
@@ -35,7 +43,7 @@ const App = () => {
         ) : (
           <Drawer.Navigator initialRouteName="Home">
             <Drawer.Screen name="Home" component={Home} />
-            <Drawer.Screen name="Top Up" component={TopUp} />
+            <Drawer.Screen name="Credit" component={Credit} />
             <Drawer.Screen name="My Trips" component={PreviousRides} />
             <Drawer.Screen name="Timetables" component={TimeTable} />
           </Drawer.Navigator>
