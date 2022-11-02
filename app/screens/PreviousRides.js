@@ -10,12 +10,17 @@ import React, { useEffect, useState } from "react";
 //importing service
 import { trips } from "../service/myTrip.service";
 
+//importing loader
+import Loader from "../components/Loader";
+
 const PreviousRides = () => {
   const [tripData, setTripData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let unmounted = false;
 
+    if (!unmounted) setLoading(true);
     const fetchData = async () => {
       const response = await trips();
 
@@ -24,6 +29,8 @@ const PreviousRides = () => {
           setTripData(response.data);
         }
       }
+
+      if (!unmounted) setLoading(false);
     };
 
     fetchData();
@@ -33,35 +40,41 @@ const PreviousRides = () => {
     };
   }, []);
 
-  console.log(tripData);
-
   return (
-    <View style={styles.previousRides_container}>
-      <ScrollView
-        style={styles.previousRides_data_container}
-        showsVerticalScrollIndicator={false}
-      >
-        {tripData.map((data, index) => {
-          return (
-            <View style={styles.previousRides_data} key={index}>
-              <Text style={styles.previousRides_data_text_1}>
-                Malabe To Colombo
-              </Text>
-              <Text style={styles.previousRides_data_text}>
-                Ticket Price Rs.120.00
-              </Text>
-              <Text style={styles.previousRides_data_text}>
-                Route &nbsp;&nbsp; 177
-              </Text>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <View style={styles.previousRides_container}>
+          <ScrollView
+            style={styles.previousRides_data_container}
+            showsVerticalScrollIndicator={false}
+          >
+            {tripData.map((data, index) => {
+              return (
+                <View style={styles.previousRides_data} key={index}>
+                  <Text style={styles.previousRides_data_text_1}>
+                    {data.start} To {data.stop}
+                  </Text>
+                  <Text style={styles.previousRides_data_text}>
+                    Ticket Price Rs. {data.charge.toLocaleString("en-US")}
+                  </Text>
+                  <Text style={styles.previousRides_data_text}>
+                    Route &nbsp;&nbsp; {data.transitRoute}
+                  </Text>
 
-              <TouchableOpacity style={styles.previousRides_data_button}>
-                <Text style={styles.previousRides_data_button_text}>View</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        })}
-      </ScrollView>
-    </View>
+                  <TouchableOpacity style={styles.previousRides_data_button}>
+                    <Text style={styles.previousRides_data_button_text}>
+                      View
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+      )}
+    </>
   );
 };
 

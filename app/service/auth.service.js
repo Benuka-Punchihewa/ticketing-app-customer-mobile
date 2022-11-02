@@ -28,3 +28,17 @@ export const createCustomer = async (data) => {
 
   return response;
 };
+
+//to get the user profile details
+export const getUserProfile = async () => {
+  const response = await getApi()
+    .get("/users/profile")
+    .then((res) => {
+      return buildResponse(true, res.data);
+    })
+    .catch((err) => {
+      return buildResponse(false, err.response.data, err.response.status);
+    });
+
+  return response;
+};

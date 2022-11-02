@@ -7,7 +7,7 @@ export const getApi = () => {
   return axios.create({
     baseURL: constants.API_BASE_URL,
     headers: {
-      Authorization: token ? token : null,
+      Authorization: token ? "Bearer " + token : null,
       "Content-Type": "application/json",
     },
   });

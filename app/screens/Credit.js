@@ -6,44 +6,83 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+//importing service
+import { getUserProfile } from "../service/auth.service";
+
+//importing loader
+import Loader from "../components/Loader";
 
 const Credit = () => {
+  const [credits, setCredits] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let unmounted = false;
+    if (!unmounted) setLoading(true);
+    const fetchData = async () => {
+      const response = await getUserProfile();
+
+      if (response.success) {
+        if (!unmounted) {
+          setCredits(response.data.credits);
+        }
+      }
+
+      if (!unmounted) setLoading(false);
+    };
+
+    fetchData();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
   return (
-    <View style={styles.topUp_container}>
-      <View style={styles.topUp_img_container}>
-        <Image
-          source={require("../assets/profile_pic.png")}
-          style={styles.topUp_avatar_img}
-          resizeMode={"cover"}
-        />
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <View style={styles.topUp_container}>
+          <View style={styles.topUp_img_container}>
+            <Image
+              source={require("../assets/profile_pic.png")}
+              style={styles.topUp_avatar_img}
+              resizeMode={"cover"}
+            />
 
-        <Text style={styles.topUp_userName}>
-          {localStorage.getItem("name")}
-        </Text>
-      </View>
+            <Text style={styles.topUp_userName}>
+              {localStorage.getItem("name")}
+            </Text>
+          </View>
 
-      <View style={styles.topUp_blance_container}>
-        <Text style={{ fontSize: 18 }}>Yore current balance</Text>
-        <Text style={styles.topUp_blance}>Rs 120000</Text>
-      </View>
+          <View style={styles.topUp_blance_container}>
+            <Text style={{ fontSize: 18 }}>Yor current balance</Text>
+            <Text style={styles.topUp_blance}>Rs {credits}</Text>
+          </View>
 
-      <View style={styles.topUp_topUpAcoount_container}>
-        <Text style={styles.topUp_topUpAcoount_topic}>Top up Your Accout</Text>
+          <View style={styles.topUp_topUpAcoount_container}>
+            <Text style={styles.topUp_topUpAcoount_topic}>
+              Top Up Your Accout
+            </Text>
 
-        <Text style={styles.topUp_topUpAcoount_amount}>Rs.</Text>
+            <Text style={styles.topUp_topUpAcoount_amount}>Rs.</Text>
 
-        <TextInput
-          style={styles.topUp_topUpAcoount_input}
-          placeholder="Enter the amount"
-          keyboardType="numeric"
-        ></TextInput>
+            <TextInput
+              style={styles.topUp_topUpAcoount_input}
+              placeholder="Enter the amount"
+              keyboardType="numeric"
+            ></TextInput>
 
-        <TouchableOpacity style={styles.topUp_topUpAcoount_button}>
-          <Text style={styles.topUp_topUpAcoount_text}>Top Up</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+            <TouchableOpacity style={styles.topUp_topUpAcoount_button}>
+              <Text style={styles.topUp_topUpAcoount_text}>Top Up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 

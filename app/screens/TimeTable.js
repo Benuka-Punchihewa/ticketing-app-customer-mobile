@@ -11,22 +11,27 @@ import React, { useState } from "react";
 //importing service
 import { timeTable } from "../service/timetable.service";
 
+//importing loader
+import Loader from "../components/Loader";
+
 const TimeTable = () => {
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
-  const [searchData, setSearchData] = useState([]);
+  const [searchData, setSearchData] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setLoading(true);
     const response = await timeTable(from, to);
 
     if (response.success) {
       setSearchData(response.data);
+      setLoading(false);
     } else {
+      setLoading(false);
       response?.data?.message && alert(response?.data?.message);
     }
   };
-
-  console.log(searchData);
 
   return (
     <View style={styles.timeTable_container}>
@@ -52,35 +57,53 @@ const TimeTable = () => {
           </TouchableOpacity>
         </View>
 
-        {searchData ? (
-          <View style={styles.timeTable_search_results_container}>
-            <Text style={styles.timeTable_search_results_topic}>
-              Search Results
-            </Text>
-            {searchData.map((data, index) => {
-              return (
-                <>
-                  <View
-                    style={styles.timeTable_search_results_data_container}
-                    key={index}
-                  >
-                    <Text style={styles.timeTable_search_results_data_topic}>
-                      {data.name}
-                    </Text>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {searchData ? (
+              <View style={styles.timeTable_search_results_container}>
+                <Text style={styles.timeTable_search_results_topic}>
+                  Search Results
+                </Text>
+                {searchData.map((bus, i) => {
+                  return (
+                    <React.Fragment key={i}>
+                      {bus.arrivalTimes.map((time, j) => {
+                        return (
+                          <View
+                            style={
+                              styles.timeTable_search_results_data_container
+                            }
+                            key={j}
+                          >
+                            <Text
+                              style={styles.timeTable_search_results_data_topic}
+                            >
+                              {bus.name}
+                            </Text>
 
-                    <Text style={styles.timeTable_search_results_data_route}>
-                      {data.routeId}
-                    </Text>
+                            <Text
+                              style={styles.timeTable_search_results_data_route}
+                            >
+                              {bus.routeId}
+                            </Text>
 
-                    <Text style={styles.timeTable_search_results_data_time}>
-                      {data.arrivalTimes}
-                    </Text>
-                  </View>
-                </>
-              );
-            })}
-          </View>
-        ) : null}
+                            <Text
+                              style={styles.timeTable_search_results_data_time}
+                            >
+                              {time}
+                            </Text>
+                          </View>
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
+              </View>
+            ) : null}
+          </>
+        )}
       </ScrollView>
     </View>
   );
@@ -136,7 +159,7 @@ const styles = StyleSheet.create({
   },
 
   timeTable_search_results_data_container: {
-    margin: 25,
+    margin: 10,
     backgroundColor: "#2196f31a",
     borderRadius: 10,
     padding: 20,
