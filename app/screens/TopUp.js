@@ -50,10 +50,11 @@ export default TopUp;
 const styles = StyleSheet.create({
   topUp_container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
 
   topUp_img_container: {
-    marginTop: 80,
+    marginTop: 30,
     justifyContent: "center",
     alignItems: "center",
   },

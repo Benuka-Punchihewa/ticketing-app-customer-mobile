@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   return (
     <View style={styles.signUp_container}>
       <Text style={styles.signUp_topic}>Sign Up</Text>
@@ -38,7 +38,12 @@ const SignUp = () => {
       <Text style={styles.signUp_oldAccout_text}>
         {" "}
         Already have an accout?
-        <Text style={styles.signUp_oldAccout_button}>Sign In</Text>
+        <Text
+          style={styles.signUp_oldAccout_button}
+          onPress={() => navigation.navigate("SignIn")}
+        >
+          Sign In
+        </Text>
       </Text>
     </View>
   );

@@ -11,8 +11,6 @@ import React from "react";
 const TimeTable = () => {
   return (
     <View style={styles.timeTable_container}>
-      <Text style={styles.timeTable_topic}>Find Travel</Text>
-
       <ScrollView>
         <View style={styles.timeTable_search_container}>
           <Text style={styles.timeTable_search_label}>From</Text>
@@ -53,13 +51,7 @@ export default TimeTable;
 const styles = StyleSheet.create({
   timeTable_container: {
     flex: 1,
-  },
-
-  timeTable_topic: {
-    marginTop: 80,
-    marginLeft: 35,
-    color: "#003459",
-    fontSize: 25,
+    backgroundColor: "#fff",
   },
 
   timeTable_search_container: {

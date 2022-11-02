@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   return (
     <View style={styles.signIn_container}>
       <Text style={styles.signIn_topic}>Sign In</Text>
@@ -22,11 +22,21 @@ const SignIn = () => {
       ></TextInput>
 
       <TouchableOpacity style={styles.signIn_button}>
-        <Text style={styles.signIn_button_text}>Sign In</Text>
+        <Text
+          style={styles.signIn_button_text}
+          onPress={() => navigation.navigate("Home")}
+        >
+          Sign In
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.signIn_newAccout_button}>
-        <Text style={styles.signIn_newAccout_text}>Create new accout</Text>
+        <Text
+          style={styles.signIn_newAccout_text}
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          Create new accout
+        </Text>
       </TouchableOpacity>
     </View>
   );

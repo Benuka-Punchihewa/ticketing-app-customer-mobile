@@ -10,44 +10,10 @@ import React from "react";
 const PreviousRides = () => {
   return (
     <View style={styles.previousRides_container}>
-      <Text style={styles.previousRides_topic}>Previous Rides</Text>
-
       <ScrollView
         style={styles.previousRides_data_container}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.previousRides_data}>
-          <Text style={styles.previousRides_data_text_1}>
-            Malabe To Colombo
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Ticket Price Rs.120.00
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Route &nbsp;&nbsp; 177
-          </Text>
-
-          <TouchableOpacity style={styles.previousRides_data_button}>
-            <Text style={styles.previousRides_data_button_text}>View</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.previousRides_data}>
-          <Text style={styles.previousRides_data_text_1}>
-            Malabe To Colombo
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Ticket Price Rs.120.00
-          </Text>
-          <Text style={styles.previousRides_data_text}>
-            Route &nbsp;&nbsp; 177
-          </Text>
-
-          <TouchableOpacity style={styles.previousRides_data_button}>
-            <Text style={styles.previousRides_data_button_text}>View</Text>
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.previousRides_data}>
           <Text style={styles.previousRides_data_text_1}>
             Malabe To Colombo
@@ -73,13 +39,7 @@ export default PreviousRides;
 const styles = StyleSheet.create({
   previousRides_container: {
     flex: 1,
-  },
-
-  previousRides_topic: {
-    marginTop: 80,
-    marginLeft: 30,
-    color: "#003459",
-    fontSize: 25,
+    backgroundColor: "#fff",
   },
 
   previousRides_data_container: {
