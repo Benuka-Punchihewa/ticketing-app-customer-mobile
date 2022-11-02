@@ -6,6 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service file
 import { loging } from "../service/auth.service";
@@ -24,10 +25,13 @@ const SignIn = ({ navigation }) => {
     const response = await loging(data);
 
     if (response.success) {
-      //setting the data to the loaclstorage and redirect user to the home screen
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("id", response.data.user._id);
-      localStorage.setItem("name", response.data.user.name);
+      const setData = async () => {
+        await AsyncStorage.setItem("token", response.data.token);
+        await AsyncStorage.setItem("id", response.data.user._id);
+        await AsyncStorage.setItem("name", response.data.user.name);
+      };
+
+      setData();
       window.location.reload(true);
       navigation.navigate("Home");
     } else {

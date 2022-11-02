@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing screens
 import SignIn from "./app/screens/SignIn";
@@ -19,11 +20,23 @@ const App = () => {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      setUser(false);
-    } else {
-      setUser(true);
-    }
+    let unmounted = false;
+
+    const getToken = async () => {
+      const response = await AsyncStorage.getItem("token");
+
+      if (response === null) {
+        if (!unmounted) setUser(false);
+      } else {
+        if (!unmounted) setUser(true);
+      }
+    };
+
+    getToken();
+
+    return () => {
+      unmounted = true;
+    };
   }, []);
 
   return (

@@ -3,7 +3,8 @@ import { buildResponse } from "../utils/responseBuilder";
 
 //to get the trips of the user
 export const trips = async () => {
-  const response = await getApi()
+  const axiosInstance = await getApi();
+  const response = await axiosInstance
     .get("/users/trips")
     .then((res) => {
       return buildResponse(true, res.data);

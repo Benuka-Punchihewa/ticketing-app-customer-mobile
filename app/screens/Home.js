@@ -1,10 +1,30 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing components
 import QRCode from "../components/QRCode";
 
 const Home = () => {
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    let unmounted = false;
+
+    const getUserId = async () => {
+      const value = await AsyncStorage.getItem("id");
+      if (!unmounted) {
+        setUserId(value);
+      }
+    };
+
+    getUserId();
+
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
   return (
     <View style={styles.home_container}>
       <Text style={styles.home_topic}>
@@ -12,7 +32,7 @@ const Home = () => {
       </Text>
 
       <View style={styles.home_Qrcode_container}>
-        <QRCode value={localStorage.getItem("id")} />
+        <QRCode value={userId} />
       </View>
     </View>
   );

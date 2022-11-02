@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 //importing service
-import { trips } from "../service/myTrip.service";
+import { trips } from "../service/trip.service";
 
 //importing loader
 import Loader from "../components/Loader";

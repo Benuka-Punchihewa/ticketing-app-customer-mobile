@@ -3,7 +3,8 @@ import { buildResponse } from "../utils/responseBuilder";
 
 //to validate user login
 export const loging = async (data) => {
-  const response = await getApi()
+  const axiosInstance = await getApi();
+  const response = await axiosInstance
     .post("/auth/login", data)
     .then((res) => {
       return buildResponse(true, res.data);
@@ -17,7 +18,8 @@ export const loging = async (data) => {
 
 //to create a new customer
 export const createCustomer = async (data) => {
-  const response = await getApi()
+  const axiosInstance = await getApi();
+  const response = await axiosInstance
     .post("/users/customer", data)
     .then((res) => {
       return buildResponse(true, res.data);
@@ -31,7 +33,8 @@ export const createCustomer = async (data) => {
 
 //to get the user profile details
 export const getUserProfile = async () => {
-  const response = await getApi()
+  const axiosInstance = await getApi();
+  const response = await axiosInstance
     .get("/users/profile")
     .then((res) => {
       return buildResponse(true, res.data);

@@ -3,7 +3,8 @@ import { buildResponse } from "../utils/responseBuilder";
 
 //to get the time table
 export const timeTable = async (start, end) => {
-  const response = await getApi()
+  const axiosInstance = await getApi();
+  const response = await axiosInstance
     .get("/timetables", {
       params: {
         start,

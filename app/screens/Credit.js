@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service
 import { getUserProfile } from "../service/auth.service";
@@ -17,16 +18,19 @@ import Loader from "../components/Loader";
 const Credit = () => {
   const [credits, setCredits] = useState();
   const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState();
 
   useEffect(() => {
     let unmounted = false;
     if (!unmounted) setLoading(true);
     const fetchData = async () => {
       const response = await getUserProfile();
+      const value = await AsyncStorage.getItem("name");
 
       if (response.success) {
         if (!unmounted) {
           setCredits(response.data.credits);
+          setUserName(value);
         }
       }
 
@@ -53,9 +57,7 @@ const Credit = () => {
               resizeMode={"cover"}
             />
 
-            <Text style={styles.topUp_userName}>
-              {localStorage.getItem("name")}
-            </Text>
+            <Text style={styles.topUp_userName}>{userName}</Text>
           </View>
 
           <View style={styles.topUp_blance_container}>
