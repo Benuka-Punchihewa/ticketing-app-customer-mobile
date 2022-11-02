@@ -10,6 +10,10 @@ import React, { useState } from "react";
 //importing the service
 import { createCustomer } from "../service/auth.service";
 
+/**
+ * 
+ * sign up screen
+ */
 const SignUp = ({ navigation }) => {
   const [nic, setNic] = useState();
   const [name, setName] = useState();
@@ -89,6 +93,7 @@ const SignUp = ({ navigation }) => {
 
 export default SignUp;
 
+// styles
 const styles = StyleSheet.create({
   signUp_container: {
     flex: 1,

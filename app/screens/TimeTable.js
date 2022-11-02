@@ -14,6 +14,9 @@ import { timeTable } from "../service/timetable.service";
 //importing loader
 import Loader from "../components/Loader";
 
+/**
+ * Timetable screen
+ */
 const TimeTable = () => {
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
@@ -111,6 +114,7 @@ const TimeTable = () => {
 
 export default TimeTable;
 
+// styles
 const styles = StyleSheet.create({
   timeTable_container: {
     flex: 1,

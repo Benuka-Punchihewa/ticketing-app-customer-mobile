@@ -15,6 +15,10 @@ import { getUserProfile } from "../service/auth.service";
 //importing loader
 import Loader from "../components/Loader";
 
+/**
+ *
+ * Credit Screen
+ */
 const Credit = () => {
   const [credits, setCredits] = useState();
   const [loading, setLoading] = useState(false);
@@ -90,6 +94,7 @@ const Credit = () => {
 
 export default Credit;
 
+// styles
 const styles = StyleSheet.create({
   topUp_container: {
     flex: 1,

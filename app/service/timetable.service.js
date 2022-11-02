@@ -1,7 +1,18 @@
+/**
+ * Timetable services 
+ */
+
 import { getApi } from "../utils/axios";
 import { buildResponse } from "../utils/responseBuilder";
 
-//to get the time table
+/**
+ * 
+ * @param {*} start -> Start Location
+ * @param {*} end -> End Location
+ * @returns PROMISE
+ * 
+ * searches and gets timetable by start location & end location
+ */
 export const timeTable = async (start, end) => {
   const axiosInstance = await getApi();
   const response = await axiosInstance

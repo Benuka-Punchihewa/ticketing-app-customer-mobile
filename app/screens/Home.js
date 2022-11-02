@@ -5,6 +5,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //importing components
 import QRCode from "../components/QRCode";
 
+/**
+ *
+ * Home Screen
+ */
 const Home = () => {
   const [userId, setUserId] = useState();
 
@@ -40,6 +44,7 @@ const Home = () => {
 
 export default Home;
 
+// styles
 const styles = StyleSheet.create({
   home_container: {
     flex: 1,

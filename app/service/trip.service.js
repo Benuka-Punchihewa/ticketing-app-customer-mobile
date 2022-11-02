@@ -1,7 +1,14 @@
+/**
+ * Trip Services
+ */
+
 import { getApi } from "../utils/axios";
 import { buildResponse } from "../utils/responseBuilder";
 
-//to get the trips of the user
+/**
+ *
+ * gets user's previous trips
+ */
 export const trips = async () => {
   const axiosInstance = await getApi();
   const response = await axiosInstance

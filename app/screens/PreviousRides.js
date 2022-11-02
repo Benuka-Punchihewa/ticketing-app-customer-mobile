@@ -13,6 +13,10 @@ import { trips } from "../service/trip.service";
 //importing loader
 import Loader from "../components/Loader";
 
+/**
+ * 
+ * Previous Rides
+ */
 const PreviousRides = () => {
   const [tripData, setTripData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -80,6 +84,7 @@ const PreviousRides = () => {
 
 export default PreviousRides;
 
+// styles
 const styles = StyleSheet.create({
   previousRides_container: {
     flex: 1,

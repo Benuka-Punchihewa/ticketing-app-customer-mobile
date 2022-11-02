@@ -9,8 +9,12 @@ import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service file
-import { loging } from "../service/auth.service";
+import { login } from "../service/auth.service";
 
+/**
+ *
+ * Sign in screen
+ */
 const SignIn = ({ navigation }) => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -22,7 +26,7 @@ const SignIn = ({ navigation }) => {
       password: password,
     };
 
-    const response = await loging(data);
+    const response = await login(data);
 
     if (response.success) {
       const setData = async () => {
@@ -73,6 +77,7 @@ const SignIn = ({ navigation }) => {
 
 export default SignIn;
 
+// styles
 const styles = StyleSheet.create({
   signIn_container: {
     flex: 1,

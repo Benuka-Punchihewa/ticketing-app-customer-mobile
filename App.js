@@ -14,25 +14,25 @@ import Credit from "./app/screens/Credit";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
-
   const Drawer = createDrawerNavigator();
 
-  const [user, setUser] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     let unmounted = false;
 
-    const getToken = async () => {
+    // handle logged in status
+    const validateLoggedInStatus = async () => {
       const response = await AsyncStorage.getItem("token");
 
       if (response === null) {
-        if (!unmounted) setUser(false);
+        if (!unmounted) setIsLoggedIn(false);
       } else {
-        if (!unmounted) setUser(true);
+        if (!unmounted) setIsLoggedIn(true);
       }
     };
 
-    getToken();
+    validateLoggedInStatus();
 
     return () => {
       unmounted = true;
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        {!user ? (
+        {!isLoggedIn ? (
           <Stack.Navigator
             initialRouteName="SignIn"
             screenOptions={{

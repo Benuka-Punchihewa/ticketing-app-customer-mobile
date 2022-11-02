@@ -1,6 +1,9 @@
 import { ActivityIndicator, StyleSheet, View, Text } from "react-native";
 import React from "react";
 
+/**
+ * Loading indicator
+ */
 const Loader = () => {
   return (
     <View style={styles.loader_container}>
@@ -12,6 +15,7 @@ const Loader = () => {
 
 export default Loader;
 
+// styles for loader
 const styles = StyleSheet.create({
   loader_container: {
     flex: 1,

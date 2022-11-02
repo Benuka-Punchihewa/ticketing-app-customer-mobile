@@ -1,8 +1,17 @@
+/**
+ * Auth Services
+ */
+
 import { getApi } from "../utils/axios";
 import { buildResponse } from "../utils/responseBuilder";
 
-//to validate user login
-export const loging = async (data) => {
+/**
+ *
+ * @param {*} data -> {username: "", password: ""}
+ *
+ * login user
+ */
+export const login = async (data) => {
   const axiosInstance = await getApi();
   const response = await axiosInstance
     .post("/auth/login", data)
@@ -16,7 +25,12 @@ export const loging = async (data) => {
   return response;
 };
 
-//to create a new customer
+/**
+ *
+ * @param {*} data
+ *
+ * Creates a customer account
+ */
 export const createCustomer = async (data) => {
   const axiosInstance = await getApi();
   const response = await axiosInstance
@@ -31,7 +45,10 @@ export const createCustomer = async (data) => {
   return response;
 };
 
-//to get the user profile details
+/**
+ *
+ * gets user profile
+ */
 export const getUserProfile = async () => {
   const axiosInstance = await getApi();
   const response = await axiosInstance
