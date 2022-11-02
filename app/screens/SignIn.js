@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service file
 import { login } from "../service/auth.service";
+import constants from "../../constants";
 
 /**
  *
@@ -30,14 +31,30 @@ const SignIn = ({ navigation }) => {
 
     if (response.success) {
       const setData = async () => {
-        await AsyncStorage.setItem("token", response.data.token);
-        await AsyncStorage.setItem("id", response.data.user._id);
-        await AsyncStorage.setItem("name", response.data.user.name);
+        // persist name in async storage
+        await AsyncStorage.setItem(
+          constants.ASYNC_STORAGE_KEYS.TOKEN,
+          response.data.token
+        );
+
+        // persist id in async storage
+        await AsyncStorage.setItem(
+          constants.ASYNC_STORAGE_KEYS.ID,
+          response.data.user._id
+        );
+
+        // persist name in async storage
+        await AsyncStorage.setItem(
+          constants.ASYNC_STORAGE_KEYS.NAME,
+          response.data.user.name
+        );
       };
 
       setData();
+
       window.location.reload(true);
       navigation.navigate("Home");
+      
     } else {
       //display the error message
       response?.data?.message && alert(response?.data?.message);

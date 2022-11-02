@@ -14,6 +14,7 @@ import { getUserProfile } from "../service/auth.service";
 
 //importing loader
 import Loader from "../components/Loader";
+import constants from "../../constants";
 
 /**
  *
@@ -29,7 +30,11 @@ const Credit = () => {
     if (!unmounted) setLoading(true);
     const fetchData = async () => {
       const response = await getUserProfile();
-      const value = await AsyncStorage.getItem("name");
+
+      // get name from async storage
+      const value = await AsyncStorage.getItem(
+        constants.ASYNC_STORAGE_KEYS.NAME
+      );
 
       if (response.success) {
         if (!unmounted) {

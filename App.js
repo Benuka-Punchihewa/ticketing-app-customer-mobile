@@ -11,6 +11,7 @@ import PreviousRides from "./app/screens/PreviousRides";
 import TimeTable from "./app/screens/TimeTable";
 import Home from "./app/screens/Home";
 import Credit from "./app/screens/Credit";
+import constants from "./constants";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -23,7 +24,9 @@ const App = () => {
 
     // handle logged in status
     const validateLoggedInStatus = async () => {
-      const response = await AsyncStorage.getItem("token");
+      const response = await AsyncStorage.getItem(
+        constants.ASYNC_STORAGE_KEYS.TOKEN
+      );
 
       if (response === null) {
         if (!unmounted) setIsLoggedIn(false);

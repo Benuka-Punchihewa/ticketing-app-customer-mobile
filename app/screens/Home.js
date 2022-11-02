@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing components
 import QRCode from "../components/QRCode";
+import constants from "../../constants";
 
 /**
  *
@@ -16,7 +17,9 @@ const Home = () => {
     let unmounted = false;
 
     const getUserId = async () => {
-      const value = await AsyncStorage.getItem("id");
+      // get user id from async storage
+      const value = await AsyncStorage.getItem(constants.ASYNC_STORAGE_KEYS.ID);
+      
       if (!unmounted) {
         setUserId(value);
       }
