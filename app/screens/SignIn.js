@@ -39,7 +39,6 @@ const SignIn = ({ navigation }) => {
           userName: response.data.user.name,
         })
       );
-      navigation.navigate("Home");
     } else {
       //display the error message
       response?.data?.message && alert(response?.data?.message);

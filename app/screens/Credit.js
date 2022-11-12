@@ -31,6 +31,7 @@ const Credit = () => {
     if (!unmounted) setLoading(true);
     const fetchData = async () => {
       const response = await getUserProfile();
+      console.log(response);
 
       if (response.success) {
         if (!unmounted) {
