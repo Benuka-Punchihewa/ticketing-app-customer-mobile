@@ -14,17 +14,26 @@ import { trips } from "../service/trip.service";
 import Loader from "../components/Loader";
 
 /**
- * 
+ *
  * Previous Rides
  */
-const PreviousRides = () => {
+const PreviousRides = ({ navigation }) => {
   const [tripData, setTripData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // navigate to the QR code screen
+  const handlePress = (token) => {
+    navigation.navigate("TripToken", {
+      token,
+    });
+  };
 
   useEffect(() => {
     let unmounted = false;
 
     if (!unmounted) setLoading(true);
+    
+    // get previous trips of the user
     const fetchData = async () => {
       const response = await trips();
 
@@ -67,7 +76,10 @@ const PreviousRides = () => {
                     Route &nbsp;&nbsp; {data.transitRoute}
                   </Text>
 
-                  <TouchableOpacity style={styles.previousRides_data_button}>
+                  <TouchableOpacity
+                    style={styles.previousRides_data_button}
+                    onPress={() => handlePress(data.token)}
+                  >
                     <Text style={styles.previousRides_data_button_text}>
                       View
                     </Text>

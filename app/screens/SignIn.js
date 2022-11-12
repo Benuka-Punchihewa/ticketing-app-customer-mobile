@@ -32,6 +32,7 @@ const SignIn = ({ navigation }) => {
     const response = await login(data);
 
     if (response.success) {
+      // dispatch login action
       dispatch(
         authActions.login({
           token: response.data.token,

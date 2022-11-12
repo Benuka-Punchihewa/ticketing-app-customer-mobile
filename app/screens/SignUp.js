@@ -15,12 +15,13 @@ import { createCustomer } from "../service/auth.service";
  * sign up screen
  */
 const SignUp = ({ navigation }) => {
+  // usestates
   const [NIC, setNIC] = useState();
   const [name, setName] = useState();
   const [password, setPassword] = useState();
   const [reEnterPassword, setReEnterPassword] = useState();
 
-  //creating the submit handler
+  // Create an account
   const handleSubmit = async () => {
     if (!password === reEnterPassword) {
       alert("Password mismatched!");

@@ -18,6 +18,7 @@ import TimeTable from "./app/screens/TimeTable";
 import Home from "./app/screens/Home";
 import Credit from "./app/screens/Credit";
 import { authActions } from "./app/store/authSlice";
+import TripToken from "./app/screens/TripToken";
 
 const CustomDrawerContent = (props) => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const Navigator = () => {
         {authState.isLoggedIn ? (
           <>
             <Stack.Screen name="HomeStack" component={HomeStack} />
+            <Stack.Screen name="TripToken" component={TripToken} />
           </>
         ) : (
           <>

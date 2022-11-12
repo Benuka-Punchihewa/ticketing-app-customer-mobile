@@ -18,6 +18,7 @@ import Loader from "../components/Loader";
  * Timetable screen
  */
 const TimeTable = () => {
+  // use states
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
   const [searchData, setSearchData] = useState();
@@ -25,6 +26,8 @@ const TimeTable = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
+
+    // request timetable
     const response = await timeTable(from, to);
 
     if (response.success) {

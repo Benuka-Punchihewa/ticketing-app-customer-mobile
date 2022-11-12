@@ -20,15 +20,19 @@ import { useSelector } from "react-redux";
  * Credit Screen
  */
 const Credit = () => {
+  // access auth state
   const authState = useSelector((state) => state.auth);
 
+  // usestates
   const [credits, setCredits] = useState();
   const [loading, setLoading] = useState(false);
-  const [userName, setUserName] = useState();
 
   useEffect(() => {
     let unmounted = false;
+
     if (!unmounted) setLoading(true);
+
+    // get user profile
     const fetchData = async () => {
       const response = await getUserProfile();
       console.log(response);

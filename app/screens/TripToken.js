@@ -3,30 +3,28 @@ import React from "react";
 
 //importing components
 import QRCode from "../components/QRCode";
-import { useSelector } from "react-redux";
 
 /**
  *
- * Home Screen
+ * Trip Token Screen
  */
-const Home = () => {
-  // access auth state
-  const authState = useSelector((state) => state.auth);
+const TripToken = ({ route }) => {
+  const { token } = route.params;
 
   return (
     <View style={styles.home_container}>
       <Text style={styles.home_topic}>
-        Please Show this QR Code to the Bus Driver
+        Please Show This Token to the Ticket Inspector If Requested.
       </Text>
 
       <View style={styles.home_Qrcode_container}>
-        <QRCode value={authState.userId} />
+        <QRCode value={token} />
       </View>
     </View>
   );
 };
 
-export default Home;
+export default TripToken;
 
 // styles
 const styles = StyleSheet.create({

@@ -9,6 +9,7 @@ const reducers = combineReducers({
   auth: authSlice.reducer,
 });
 
+// configurations
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
@@ -16,6 +17,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
+// create redux store
 const store = configureStore({
   reducer: persistedReducer,
   middleware: [thunk],
