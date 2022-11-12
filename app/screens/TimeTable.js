@@ -43,13 +43,15 @@ const TimeTable = () => {
           <Text style={styles.timeTable_search_label}>From</Text>
           <TextInput
             style={styles.timeTable_search_inputs}
-            onChange={(e) => setFrom(e.target.value)}
+            onChangeText={(value) => setFrom(value)}
+            defaultValue={from}
           ></TextInput>
 
           <Text style={styles.timeTable_search_label}>To</Text>
           <TextInput
             style={styles.timeTable_search_inputs}
-            onChange={(e) => setTo(e.target.value)}
+            onChangeText={(value) => setTo(value)}
+            defaultValue={to}
           ></TextInput>
 
           <TouchableOpacity

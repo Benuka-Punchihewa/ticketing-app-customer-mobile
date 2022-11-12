@@ -6,17 +6,19 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service file
 import { login } from "../service/auth.service";
-import constants from "../../constants";
+import { useDispatch } from "react-redux";
+import { authActions } from "../store/authSlice";
 
 /**
  *
  * Sign in screen
  */
 const SignIn = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -30,31 +32,14 @@ const SignIn = ({ navigation }) => {
     const response = await login(data);
 
     if (response.success) {
-      const setData = async () => {
-        // persist name in async storage
-        await AsyncStorage.setItem(
-          constants.ASYNC_STORAGE_KEYS.TOKEN,
-          response.data.token
-        );
-
-        // persist id in async storage
-        await AsyncStorage.setItem(
-          constants.ASYNC_STORAGE_KEYS.ID,
-          response.data.user._id
-        );
-
-        // persist name in async storage
-        await AsyncStorage.setItem(
-          constants.ASYNC_STORAGE_KEYS.NAME,
-          response.data.user.name
-        );
-      };
-
-      setData();
-
-      window.location.reload(true);
+      dispatch(
+        authActions.login({
+          token: response.data.token,
+          userId: response.data.user._id,
+          userName: response.data.user.name,
+        })
+      );
       navigation.navigate("Home");
-      
     } else {
       //display the error message
       response?.data?.message && alert(response?.data?.message);
@@ -68,14 +53,16 @@ const SignIn = ({ navigation }) => {
       <Text style={styles.signIn_lables}>Username</Text>
       <TextInput
         style={styles.signIn_inputs}
-        onChange={(e) => setUserName(e.target.value)}
+        onChangeText={(value) => setUserName(value)}
+        defaultValue={username}
       ></TextInput>
 
       <Text style={styles.signIn_lables}>Password</Text>
       <TextInput
         secureTextEntry={true}
         style={styles.signIn_inputs}
-        onChange={(e) => setPassword(e.target.value)}
+        onChangeText={(value) => setPassword(value)}
+        defaultValue={password}
       ></TextInput>
 
       <TouchableOpacity style={styles.signIn_button} onPress={handleSubmit}>

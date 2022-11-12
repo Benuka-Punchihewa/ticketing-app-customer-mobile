@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing components
 import QRCode from "../components/QRCode";
-import constants from "../../constants";
+import { useSelector } from "react-redux";
 
 /**
  *
@@ -13,19 +12,14 @@ import constants from "../../constants";
 const Home = () => {
   const [userId, setUserId] = useState();
 
+  const authState = useSelector((state) => state.auth);
+
   useEffect(() => {
     let unmounted = false;
 
-    const getUserId = async () => {
-      // get user id from async storage
-      const value = await AsyncStorage.getItem(constants.ASYNC_STORAGE_KEYS.ID);
-      
-      if (!unmounted) {
-        setUserId(value);
-      }
-    };
-
-    getUserId();
+    if (!unmounted) {
+      setUserId(authState.userId);
+    }
 
     return () => {
       unmounted = true;

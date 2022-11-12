@@ -11,11 +11,11 @@ import React, { useState } from "react";
 import { createCustomer } from "../service/auth.service";
 
 /**
- * 
+ *
  * sign up screen
  */
 const SignUp = ({ navigation }) => {
-  const [nic, setNic] = useState();
+  const [NIC, setNIC] = useState();
   const [name, setName] = useState();
   const [password, setPassword] = useState();
   const [reEnterPassword, setReEnterPassword] = useState();
@@ -26,7 +26,7 @@ const SignUp = ({ navigation }) => {
       alert("Password mismatched!");
     } else {
       const data = {
-        _id: nic,
+        _id: NIC,
         name: name,
         password: password,
       };
@@ -50,27 +50,31 @@ const SignUp = ({ navigation }) => {
       <Text style={styles.signUp_lables}>NIC</Text>
       <TextInput
         style={styles.signUp_inputs}
-        onChange={(e) => setNic(e.target.value)}
+        onChangeText={(value) => setNIC(value)}
+        defaultValue={NIC}
       ></TextInput>
 
       <Text style={styles.signUp_lables}>Full Name</Text>
       <TextInput
         style={styles.signUp_inputs}
-        onChange={(e) => setName(e.target.value)}
+        onChangeText={(value) => setName(value)}
+        defaultValue={name}
       ></TextInput>
 
       <Text style={styles.signUp_lables}>Password</Text>
       <TextInput
         style={styles.signUp_inputs}
         secureTextEntry={true}
-        onChange={(e) => setPassword(e.target.value)}
+        onChangeText={(value) => setPassword(value)}
+        defaultValue={password}
       ></TextInput>
 
       <Text style={styles.signUp_lables}>Confirm Password</Text>
       <TextInput
         style={styles.signUp_inputs}
         secureTextEntry={true}
-        onChange={(e) => setReEnterPassword(e.target.value)}
+        onChangeText={(value) => setReEnterPassword(value)}
+        defaultValue={reEnterPassword}
       ></TextInput>
 
       <TouchableOpacity style={styles.signUp_button} onPress={handleSubmit}>

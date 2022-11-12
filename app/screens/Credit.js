@@ -7,20 +7,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //importing service
 import { getUserProfile } from "../service/auth.service";
 
 //importing loader
 import Loader from "../components/Loader";
-import constants from "../../constants";
+import { useSelector } from "react-redux";
 
 /**
  *
  * Credit Screen
  */
 const Credit = () => {
+  const authState = useSelector((state) => state.auth);
+
   const [credits, setCredits] = useState();
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState();
@@ -31,15 +32,9 @@ const Credit = () => {
     const fetchData = async () => {
       const response = await getUserProfile();
 
-      // get name from async storage
-      const value = await AsyncStorage.getItem(
-        constants.ASYNC_STORAGE_KEYS.NAME
-      );
-
       if (response.success) {
         if (!unmounted) {
           setCredits(response.data.credits);
-          setUserName(value);
         }
       }
 
@@ -66,7 +61,7 @@ const Credit = () => {
               resizeMode={"cover"}
             />
 
-            <Text style={styles.topUp_userName}>{userName}</Text>
+            <Text style={styles.topUp_userName}>{authState.userName}</Text>
           </View>
 
           <View style={styles.topUp_blance_container}>
