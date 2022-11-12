@@ -35,8 +35,7 @@ const Credit = () => {
     // get user profile
     const fetchData = async () => {
       const response = await getUserProfile();
-      console.log(response);
-
+      
       if (response.success) {
         if (!unmounted) {
           setCredits(response.data.credits);

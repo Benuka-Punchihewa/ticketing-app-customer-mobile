@@ -32,7 +32,7 @@ const PreviousRides = ({ navigation }) => {
     let unmounted = false;
 
     if (!unmounted) setLoading(true);
-    
+
     // get previous trips of the user
     const fetchData = async () => {
       const response = await trips();
@@ -67,7 +67,7 @@ const PreviousRides = ({ navigation }) => {
               return (
                 <View style={styles.previousRides_data} key={index}>
                   <Text style={styles.previousRides_data_text_1}>
-                    {data.start} To {data.stop}
+                    {data.stop ? `${data.start} To ${data.stop}` : `Pending`}
                   </Text>
                   <Text style={styles.previousRides_data_text}>
                     Ticket Price Rs. {data.charge.toLocaleString("en-US")}
